@@ -1,0 +1,29 @@
+import pandas as pd
+import math
+
+data = pd.read_csv("../data/sales_data.csv")
+
+daily_demand = data["quantity_sold"].mean()
+demand_std = data["quantity_sold"].std()
+
+# Varsayımsal parametreler
+lead_time = 5
+service_level_z = 1.65
+ordering_cost = 100
+annual_holding_cost = 20
+annual_demand = daily_demand * 365
+
+# Güvenlik stoğu
+safety_stock = service_level_z * demand_std * math.sqrt(lead_time)
+
+# Yeniden sipariş noktası
+reorder_point = (daily_demand * lead_time) + safety_stock
+
+# Ekonomik sipariş miktarı (EOQ)
+eoq = math.sqrt(
+    (2 * annual_demand * ordering_cost) / annual_holding_cost
+)
+
+print("Safety Stock:", round(safety_stock, 2))
+print("Reorder Point:", round(reorder_point, 2))
+print("Economic Order Quantity:", round(eoq, 2))

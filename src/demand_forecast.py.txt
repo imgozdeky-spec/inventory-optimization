@@ -1,0 +1,12 @@
+import pandas as pd
+
+data = pd.read_csv("../data/sales_data.csv")
+
+# Günlük talep ortalaması
+average_demand = data["quantity_sold"].mean()
+
+# Son 7 günün ortalama talebi
+recent_demand = data["quantity_sold"].tail(7).mean()
+
+print("Average daily demand:", round(average_demand, 2))
+print("Recent 7-day demand:", round(recent_demand, 2))

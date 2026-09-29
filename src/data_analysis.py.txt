@@ -1,0 +1,30 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Veri setini oku
+data = pd.read_csv("../data/sales_data.csv")
+
+# İlk 5 satırı göster
+print("İlk 5 kayıt:")
+print(data.head())
+
+# Genel bilgiler
+print("\nVeri seti bilgileri:")
+print(data.info())
+
+# Temel istatistikler
+print("\nTemel istatistikler:")
+print(data.describe())
+
+# Günlük satış grafiği
+plt.figure(figsize=(10, 5))
+plt.plot(data["date"], data["quantity_sold"], marker="o")
+
+plt.title("Günlük Ürün Talebi")
+plt.xlabel("Tarih")
+plt.ylabel("Satış Miktarı")
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+plt.savefig("../outputs/daily_demand.png")
+plt.show()
